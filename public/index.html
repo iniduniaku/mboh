@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Auth Screen -->
+  <div id="auth-screen" class="screen active">
+    <div class="auth-container">
+      <div class="auth-header">
+        <i class="fas fa-comments"></i>
+        <h1>Chat App</h1>
+      </div>
+      
+      <div class="auth-tabs">
+        <button class="tab-btn active" data-tab="login">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <button class="tab-btn" data-tab="signup">
+          <i class="fas fa-user-plus"></i> Sign Up
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="auth-form active">
+        <div class="form-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="login-username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="login-password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn-primary">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <div id="login-error" class="error-message"></div>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signup-form" class="auth-form">
+        <div class="form-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="signup-username" placeholder="Username (min 3 karakter)" required>
+        </div>
+        <div class="form-group">
+          <i class="fas fa-id-card"></i>
+          <input type="text" id="signup-displayname" placeholder="Nama Tampilan (opsional)">
+        </div>
+        <div class="form-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="signup-password" placeholder="Password (min 6 karakter)" required>
+        </div>
+        <button type="submit" class="btn-primary">
+          <i class="fas fa-user-plus"></i> Sign Up
+        </button>
+        <div id="signup-error" class="error-message"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Chat Screen -->
+  <div id="chat-screen" class="screen">
+    <div class="chat-container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="user-info">
+            <div class="user-avatar">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="user-details">
+              <h3 id="current-user-name">User</h3>
+              <span class="status-online">
+                <i class="fas fa-circle"></i> Online
+              </span>
+            </div>
+          </div>
+          <button id="logout-btn" class="icon-btn" title="Logout">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+
+        <div class="search-container">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search-user" placeholder="Cari pengguna...">
+          </div>
+        </div>
+
+        <div id="user-list" class="user-list">
+          <!-- User items will be populated here -->
+        </div>
+      </div>
+
+      <!-- Chat Area -->
+      <div class="chat-area">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="welcome-screen">
+          <i class="fas fa-comments"></i>
+          <h2>Selamat Datang di Chat App</h2>
+          <p>Cari dan pilih pengguna untuk memulai percakapan</p>
+        </div>
+
+        <!-- Active Chat -->
+        <div id="active-chat" class="active-chat" style="display: none;">
+          <div class="chat-header">
+            <div class="chat-user-info">
+              <div class="user-avatar">
+                <i class="fas fa-user-circle"></i>
+              </div>
+              <div class="user-details">
+                <h3 id="chat-username">Username</h3>
+                <span id="chat-status" class="status-text">
+                  <i class="fas fa-circle"></i> Offline
+                </span>
+              </div>
+            </div>
+            <button id="close-chat-btn" class="icon-btn" title="Tutup Chat">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+
+          <div id="messages-container" class="messages-container">
+            <!-- Messages will be populated here -->
+          </div>
+
+          <div class="typing-indicator" id="typing-indicator" style="display: none;">
+            <span class="typing-dots">
+              <i class="fas fa-circle"></i>
+              <i class="fas fa-circle"></i>
+              <i class="fas fa-circle"></i>
+            </span>
+            <span>sedang mengetik...</span>
+          </div>
+
+          <div class="chat-input-container">
+            <button id="attach-btn" class="icon-btn" title="Lampirkan File">
+              <i class="fas fa-paperclip"></i>
+            </button>
+            <input type="file" id="file-input" style="display: none;" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt">
+            <div class="input-wrapper">
+              <input type="text" id="message-input" placeholder="Ketik pesan...">
+            </div>
+            <button id="send-btn" class="icon-btn btn-send" title="Kirim">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+  </html>
